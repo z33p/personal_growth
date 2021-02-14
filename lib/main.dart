@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:personal_grouth/Database/MyDatabase.dart';
+import 'package:personal_grouth/Config/Database/MyDatabase.dart';
 import 'package:personal_grouth/Pages/Main/MainPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await MyDatabase.init();
 
   runApp(MyApp());
