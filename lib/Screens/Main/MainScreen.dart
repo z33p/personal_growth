@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:personal_grouth/Screens/Main/ConfigureAppScreen.dart';
 import 'package:personal_grouth/Screens/Main/CreateProductScreen.dart';
 import 'package:personal_grouth/Screens/Main/ListProductsScreen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainScreen extends StatefulWidget {
   final String title;
@@ -13,32 +14,35 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int currentIndex = 0;
+  int currentIndex = 1;
   List<Widget> listScreens;
 
   @override
   void initState() {
     super.initState();
     listScreens = [
-      ListProductsScreen(),
       CreateProductScreen(),
+      ListProductsScreen(),
       ConfigureAppScreen()
     ];
   }
 
   @override
   Widget build(BuildContext context) {
+    final langLabels = AppLocalizations.of(context);
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         onTap: (i) => setState(() => currentIndex = i),
         currentIndex: currentIndex,
         elevation: 12.0,
         items: [
-          BottomNavigationBarItem(label: "Listar", icon: Icon(Icons.list)),
           BottomNavigationBarItem(
-              label: "Criar", icon: Icon(Icons.create_sharp)),
+              label: langLabels.add, icon: Icon(Icons.post_add_rounded)),
           BottomNavigationBarItem(
-              label: "Configurações", icon: Icon(Icons.settings)),
+              label: langLabels.cart, icon: Icon(Icons.add_shopping_cart)),
+          BottomNavigationBarItem(
+              label: langLabels.settings, icon: Icon(Icons.settings)),
         ],
       ),
       appBar: AppBar(

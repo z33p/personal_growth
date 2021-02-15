@@ -1,0 +1,14 @@
+{
+    "cart": "Cart",
+    "@cart": {
+        "description": ""
+    },
+    "add": "Add",
+    "@add": {
+        "description": ""
+    },
+    "settings": "Settings",
+    "@settings": {
+        "description": ""
+    }
+}
