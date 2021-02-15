@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import "package:flutter/material.dart";
+import 'package:intl/intl.dart';
 import "package:personal_grouth/Providers/Database/MyDatabase.dart";
 import "package:personal_grouth/Screens/Main/MainScreen.dart";
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -6,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MyDatabase.init();
+  Intl.defaultLocale = Platform.localeName;
 
   runApp(MyApp());
 }
