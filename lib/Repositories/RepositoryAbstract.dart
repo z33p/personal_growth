@@ -1,4 +1,4 @@
-import 'package:personal_grouth/Config/Database/MyDatabase.dart';
+import 'package:personal_grouth/Providers/Database/MyDatabase.dart';
 import 'package:personal_grouth/Filters/FilterAbstract.dart';
 import 'package:personal_grouth/Model/Entity.dart';
 import 'package:sqflite/sqflite.dart';

@@ -16,7 +16,7 @@ class MyDatabase {
 
     // await instance.insert(Product.tableName, Product.make(name: "Minecraft", price: 140).toMap());
     // await instance.insert(Product.tableName, Product.make(name: "Windows", price: 35).toMap());
-    // await instance.insert(Product.tableName, Product.make(name: "Minecraft", price: 0).toMap());
+    // await instance.insert(Product.tableName, Product.make(name: "Linux", price: 0).toMap());
   }
 
   static Future<Database> getInstance() async {
