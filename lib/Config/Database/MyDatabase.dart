@@ -1,5 +1,6 @@
 import "package:path/path.dart";
 import 'package:personal_grouth/Model/Company.dart';
+import 'package:personal_grouth/Model/CompanyProduct.dart';
 import 'package:personal_grouth/Model/Product.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -12,6 +13,10 @@ class MyDatabase {
   static Future<void> init() async {
     // deleteDbIfExists();
     instance = await getInstance();
+
+    // await instance.insert(Product.tableName, Product.make(name: "Minecraft", price: 140).toMap());
+    // await instance.insert(Product.tableName, Product.make(name: "Windows", price: 35).toMap());
+    // await instance.insert(Product.tableName, Product.make(name: "Minecraft", price: 0).toMap());
   }
 
   static Future<Database> getInstance() async {
@@ -32,6 +37,7 @@ class MyDatabase {
   static void onCreate(Database db, int version) async {
     await Company.createTable(db);
     await Product.createTable(db);
+    await CompanyProduct.createTable(db);
   }
 
   static Future<void> deleteDbIfExists() async {

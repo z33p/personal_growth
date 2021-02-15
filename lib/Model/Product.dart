@@ -1,7 +1,5 @@
+import 'package:personal_grouth/Model/Entity.dart';
 import 'package:sqflite/sqflite.dart';
-
-import 'Company.dart';
-import 'Entity.dart';
 
 class Product extends Entity {
   int productId;
@@ -9,23 +7,16 @@ class Product extends Entity {
   final String name;
   final int price;
 
-  final int companyId;
-  final Company company;
-
-  Product(
+  Product({
     this.productId
     , this.name
     , this.price
-    , this.companyId
-    , this.company
-  );
+    , createdAt
+    , updatedAt
+  })
+    : super(createdAt, updatedAt);
 
-  Product.make(
-    this.name
-    , this.price
-    , this.companyId
-    , this.company
-  );
+  Product.make({this.name, this.price}) : super.make();
 
   static String tableName = "products";
 
@@ -33,17 +24,43 @@ class Product extends Entity {
   static String nameColumn = "name";
   static String priceColumn = "price";
 
-  static String companyIdColumn = "company_id";
-
   static Future<void> createTable(Database db) async {
-    return  await db.execute("""
+    return await db.execute("""
       CREATE TABLE $tableName(
         $idColumn INTEGER PRIMARY KEY
         , $nameColumn TEXT
         , $priceColumn INTEGER
-        , ${Product.companyIdColumn} INTEGER
-        , FOREIGN KEY (${Product.companyIdColumn}) REFERENCES ${Company.tableName} (${Company.idColumn}) ON DELETE NO ACTION ON UPDATE NO ACTION
+        ${Entity.createEntityColumnsSql}
       )
     """);
+  }
+
+  static Product fromMap(Map<String, dynamic> productMap) {
+    var entity = Entity.fromMap(productMap);
+
+    var product = Product(
+      productId: productMap[idColumn]
+      , name: productMap[nameColumn]
+      , price: productMap[priceColumn]
+      , createdAt: entity.createdAt
+      , updatedAt: entity.updatedAt
+    );
+
+    return product;
+  }
+
+  static List<Product> fromMapList(List<Map<String, dynamic>> productsMap) {
+    var products = productsMap.map((p) => fromMap(p)).toList();
+
+    return products;
+  }
+
+  Map<String, dynamic> toMap() {
+    var productMap = super.toMap();
+
+    productMap[nameColumn] = this.name;
+    productMap[priceColumn] = this.price;
+
+    return productMap;
   }
 }

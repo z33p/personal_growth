@@ -7,8 +7,15 @@ class Company extends Entity {
 
   final String name;
 
-  Company(this.companyId, this.name);
-  Company.make(this.name);
+  Company({
+    this.companyId
+    , this.name
+    , createdAt
+    , updatedAt
+  })
+    : super(createdAt, updatedAt);
+
+  Company.make({this.name}) : super.make();
 
   static const tableName = "companies";
 
@@ -20,13 +27,20 @@ class Company extends Entity {
       CREATE TABLE $tableName(
         $idColumn INTEGER PRIMARY KEY
         , $nameColumn TEXT
-        , ${Entity.createColumnsSql}
+        ${Entity.createEntityColumnsSql}
       )
     """);
   }
 
   static Company fromMap(Map<String, dynamic> companyMap) {
-    var company = Company(companyMap[idColumn], companyMap[nameColumn]);
+    var entity = Entity.fromMap(companyMap);
+
+    var company = Company(
+      companyId: companyMap[idColumn]
+      , name: companyMap[nameColumn]
+      , createdAt: entity.createdAt
+      , updatedAt: entity.updatedAt
+    );
 
     return company;
   }
@@ -37,8 +51,9 @@ class Company extends Entity {
     return companies;
   }
 
+  @override
   Map<String, dynamic> toMap() {
-    var companyMap = Map<String, dynamic>();
+    var companyMap = super.toMap();
 
     companyMap[nameColumn] = this.name;
 
